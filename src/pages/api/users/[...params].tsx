@@ -1,6 +1,8 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default (request: NextApiRequest, response: NextApiResponse) => {
+  console.log(request.query)
   const users = [
     { id: 1, name: 'Caique'},
     { id: 2, name: 'Caique2'},
