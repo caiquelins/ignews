@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 import { RichText } from 'prismic-dom';
@@ -54,9 +54,11 @@ export default function PostPreview({ post }: PostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [
+      { params: { slug: 'next.js---novidades-na-versao-10-e-atualizacao-do-blog' } }
+    ],
     fallback: 'blocking'
   }
 }
@@ -82,6 +84,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       post,
-    }
+    },
+    redirect: 60 * 30, // 30 minutos
   }
 }
