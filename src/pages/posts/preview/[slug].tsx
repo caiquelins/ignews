@@ -56,9 +56,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [
-      { params: { slug: 'next.js---novidades-na-versao-10-e-atualizacao-do-blog' } }
-    ],
+    paths: [],
     fallback: 'blocking'
   }
 }

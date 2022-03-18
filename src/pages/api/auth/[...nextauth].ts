@@ -15,7 +15,9 @@ export default NextAuth({
         }
       },
     }),
+
   ],
+  secret: process.env.SECRET,
   callbacks: {
     async session({ session }) {
       try {
@@ -29,19 +31,18 @@ export default NextAuth({
                   q.Get(
                     q.Match(
                       q.Index('user_by_email'),
-                      q.Casefold(session.user.email)
-                    )
-                  )
-                )
+                      q.Casefold(session?.user?.email!)
+                    ),
+                  ),
+                ),
               ),
               q.Match(
                 q.Index('subscription_by_status'),
                 "active"
-              )
-            ])
-          )
-        )
-
+              ),
+            ]),
+          ),
+        );
         return {
           ...session,
           activeSubscription: userActiveSubscription
@@ -54,7 +55,7 @@ export default NextAuth({
       }
 
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user }) {
       const { email } = user;
 
       try {
@@ -81,7 +82,7 @@ export default NextAuth({
           )
         )
         return true;
-      } catch {
+      } catch(e) {
         return false;
       }
     },
